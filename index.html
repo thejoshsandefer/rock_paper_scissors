@@ -1,0 +1,110 @@
+<script>
+
+var playerCounter = 0
+var computerCounter = 0
+
+function game() {
+    do {
+    const playerSelection = getPlayerSelection();
+    const computerSelection = getComputerSelection();
+    console.log("Human: " + playerSelection + "  Robot: " + computerSelection);
+    //console.log(computerSelection);
+    //console.log("You're a butt.");
+
+    console.log(playRound(computerSelection, playerSelection));
+    declareWinner(playerCounter, computerCounter);
+    } while (playerCounter < 3 && computerCounter < 3);
+
+}
+
+
+function playRound(computerSelection, playerSelection) {
+    switch(playerSelection + computerSelection) {
+        //player win scenarios
+        case "rockscissors":
+        case "paperrock":
+        case "scissorspaper":
+            return win();
+            break;
+
+        //player lose scenarios   
+        case "rockpaper":
+        case "paperscissors":
+        case "scissorsrock":
+            return lose();
+            break;
+
+        //player tie scenarios
+        case "rockrock":            
+        case "paperpaper":    
+        case "scissorsscissors":
+            return tie();
+            break;
+    }
+    
+}   
+
+//WORKS
+function getPlayerSelection() {
+    return prompt("Rock, paper or scissors? Choose your weapon!").trim().toLowerCase();
+}
+
+//WORKS Generates a random number and uses that to determine the computer's choice.
+function getComputerSelection() {
+    let num = Math.random() * 6;
+    if (num <= 2) {
+        return "rock";
+    } else if (num >= 4) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
+}
+
+//Keeps a counter of the player's score and the computer's score in the counter variables
+function win() {
+    playerCounter++;
+    return("You win this time human...");
+}
+
+function lose() {
+    computerCounter++;
+    return("Better luck next time human.");
+}
+
+function tie() {
+    return("Draw!");
+}
+//Not sure why the below switch function didn't work, but the above three separate functions did. 
+
+/**function scoreKeeper(i) {
+    switch(i) {
+        case "win":
+            playerCounter++;
+            return("That's a win for our player!");
+        case "lose":
+            computerCounter++;
+            return("Better luck next time human.");
+        case "tie":
+            return("Draw!");
+    }
+}**/
+
+//Compares counters, first counter to get to 3 gets an output
+function declareWinner (playerCounter, computerCounter) {
+    if (playerCounter == 3) {
+        console.log("Player wins!")
+    } else if (computerCounter == 3) {
+        console.log("Player loses...")
+    } else {
+        console.log("Player score is " + playerCounter + " and the robot's score is " + computerCounter);
+    }
+    
+
+}
+
+
+
+game();
+
+</script>
